@@ -1,48 +1,38 @@
 { lib, pkgs, ... }:
 
 {
-  # ===== Configuración específica para GNOME =====
-  # (Asume que GDM ya está activado desde desktop-environments.nix)
-
-  # Extensiones GNOME (las que se instalan globalmente)
+  # === Aplicaciones no deseadas ===
   environment.gnome.excludePackages = with pkgs; [
-    cheese
-    gnome-connections
-    seahorse
-    gnome-music
-    epiphany
-    gnome-tour
-    gnome-shell-extensions   # Excluye la app nativa (usamos extension-manager)
+    # Apps que NO quieres (personaliza esta lista)
+    cheese           # Cámara web
+    gnome-connections  # Conexiones remotas
+    seahorse         # Administrador de claves
+    gnome-music      # Reproductor de música
+    epiphany         # Navegador web
+    gnome-tour       # Tour introductorio
+    #gnome-shell-extensions  # (Opcional: si usas extension-manager)
   ];
 
-  # Paquetes y extensiones (instalación global)
+  # === Aplicaciones extra ===
   environment.systemPackages = with pkgs; [
-    # Herramientas esenciales
-    gnome-tweaks
-    gnome-extension-manager  # Alternativa mejorada a gnome-extensions-app
-
-    # Extensiones (instalación manual desde el manager luego)
-    gnomeExtensions.blur-my-shell
-    gnomeExtensions.caffeine
-    gnomeExtensions.vitals
-    gnomeExtensions.gsconnect
-    gnomeExtensions.openweather-refined
-    gnomeExtensions.forge
-    gnomeExtensions.fuzzy-app-search
-    gnomeExtensions.app-menu-is-back
-    gnomeExtensions.open-bar
-    gnomeExtensions.tiling-shell
-    gnomeExtensions.vertical-workspaces
-    gnomeExtensions.search-light
-    gnomeExtensions.burn-my-windows
+    # Herramientas de sistema que deseas conservar
+    gnome-disk-utility  # Analizador de discos (baobab)
+    gnome-system-monitor  # Monitor del sistema
+    gnome-logs          # Visor de registros (logs)
+    
+    # Herramientas adicionales de personalización
+    gnome-tweaks        # Tweaks para GNOME
+    gnome-extension-manager   # Gestor de extensiones (alternativo)
   ];
 
-  # ===== Optimizaciones específicas para GNOME =====
-  services = {
-    dbus.packages = [ pkgs.gcr ];  # Necesario para GNOME Keyring
-    gnome = {
-      core-developer-tools.enable = true;  # Herramientas para desarrolladores
-      core-apps.enable = false;       # Desactiva apps no deseadas
-    };
+  # === Configuración de servicios GNOME ===
+  services.gnome = {
+    core-shell.enable = true;       # Shell básico de GNOME
+    core-apps.enable = true;        # Habilita apps básicas (incluye disk-utility, system-monitor, logs)
+    core-utilities.enable = true;   # Utilidades básicas (necesario para algunas herramientas)
+    core-developer-tools.enable = false;  # Desactiva si no necesitas herramientas de desarrollo
   };
+
+  # Necesario para el keyring de GNOME
+  services.dbus.packages = [ pkgs.gcr ];
 }

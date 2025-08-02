@@ -7,7 +7,8 @@
   # + Paquetes instalados en Multiusuario
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    ghostty
+    ghostty 
+    zsh
     steam
     git
     librewolf-bin
@@ -15,7 +16,9 @@
     # - Paquetes de objetos graficos (iconos, mouse)    
 
   ];
-
+  programs.zsh.enable = true;
+  environment.shells = with pkgs; [ zsh ];
+  
   # Enable CUPS to print documents.
   services.printing.enable = false;
 

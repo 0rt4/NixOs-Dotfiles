@@ -5,6 +5,7 @@
 { config, pkgs, ... }:
 
 {
+  #================== Archivos de configuración ==================
   imports =
     [
       ./hardware-configuration.nix #  hardware scan.
@@ -12,17 +13,17 @@
       ./Sound-Drivers.nix # Drivers (Pipewire)
       ./Enviroment/Desktops-Enviroments.nix # Entorno de Escritorio y sus parametros
       ./Network.nix # Network (Wifi, FIrewall, Conexiones SSH, VNC)
-      ./Packages.nix # Paquetes instalados en el sistema
+      ./Global-Packages.nix # Paquetes instalados en el sistema
       ./Users.nix # Usuarios y paquetes instalados individualmente
       ./Region-Language.nix # Configuracion de idioma y teclado
     ];
 
 
-  # Bootloader.
+  # ======================== Bootloader ==========================
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  #Configuraciones Experimentales
+  #===============Configuraciones Experimentales =================
   nix.settings.experimental-features = [ "nix-command" "flakes" ];   
   
   # This value determines the NixOS release from which the default
