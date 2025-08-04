@@ -10,7 +10,15 @@
     gnome-music      # Reproductor de música
     epiphany         # Navegador web
     gnome-tour       # Tour introductorio
-    #gnome-shell-extensions  # (Opcional: si usas extension-manager)
+    gnome-maps       # Mapas
+    gnome-contacts         # Contactos
+    gnome-weather          # Meteorología
+    gnome-clocks             # Ayuda/Documentación (yelp es el visor de ayuda)
+    gnome-characters    # Visor de caracteres especiales
+    gnome-console       # Terminal de GNOME (reemplázala por tu terminal preferida)
+    yelp
+    totem
+    xterm
   ];
 
   # === Aplicaciones extra ===
@@ -22,7 +30,7 @@
     
     # Herramientas adicionales de personalización
     gnome-tweaks        # Tweaks para GNOME
-    gnome-extension-manager   # Gestor de extensiones (alternativo)
+    #gnome-extension-manager   # Gestor de extensiones (alternativo)
   ];
 
   # === Configuración de servicios GNOME ===
@@ -34,5 +42,6 @@
   };
 
   # Necesario para el keyring de GNOME
+  programs.dconf.enable = true;
   services.dbus.packages = [ pkgs.gcr ];
 }

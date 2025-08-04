@@ -1,44 +1,29 @@
 { config, lib, pkgs, ... }:
 
 let
-  # ===== VARIABLES DE CONTROL DE ENTORNOS =====
-  enableGNOME = true;     # Controla si GNOME está activado
-  enablePlasma = false;   # Controla si KDE Plasma está activado
-  enableHyprland = false; # Controla si Hyprland está activado
+  # ===== Variables de Control =====
+  enableGNOME = true;     # Activa GNOME como escritorio
+  enablePlasma = false;   # Activa KDE Plasma (desactivado)
+  enableHyprland = false; # Activa Hyprland (desactivado)
 
-  # ===== LISTA DE IMPORTS CONDICIONALES =====
-  # (Editado aquí: ahora usa lib.optional correctamente)
-  desktopImports = []
-    ++ lib.optional enableGNOME ./Gnome-Setup.nix
-    ++ lib.optional enablePlasma ./KDE-Plasma-Setup.nix
-    ++ lib.optional enableHyprland ./Hyprland-Setup.nix;
+  # Lista plana de imports (sin listas anidadas)
+  desktopImports = 
+    (if enableGNOME then [./Gnome-Setup.nix] else []) ++
+    (if enablePlasma then [./KDE-Plasma-Setup.nix] else []) ++
+    (if enableHyprland then [./Hyprland-Setup.nix] else []);
 
 in {
   imports = desktopImports;
 
-  # ===== CONFIGURACIÓN PRINCIPAL DEL SERVIDOR X =====
-  services.xserver = {
-    enable = true;  # (Añadido: necesario para activar cualquier entorno gráfico)
-
-    # ===== GESTOR DE PANTALLA (GDM) =====
-    displayManager.gdm = {
-      enable = true;    # GDM como gestor universal
-      wayland = true;   # Soporte para Wayland
-    };
-
-    # ===== ESCRITORIOS (EDITADO IMPORTANTE AQUÍ) =====
-    # Cambié de services.desktopManager a services.xserver.desktopManager
-    desktopManager = {
-      gnome.enable = enableGNOME;   # GNOME ahora va dentro de xserver
-      plasma6.enable = enablePlasma; # Plasma también va aquí
-    };
+  # ===== Configuración del Gestor de Pantalla =====
+  services.displayManager = {
+    gdm.enable = enableGNOME;  # Wayland es automático en GNOME
+    sddm.enable = enablePlasma;
   };
 
-
-  # ===== HYPRLAND (OPCIONAL) =====
-  # programs.hyprland = {
-  #   enable = enableHyprland;
-  #   xwayland.enable = true;  # Necesario para muchas apps
-  #   nvidiaPatches = false;   # Activar si usas NVIDIA
-  # };
+  # ===== Configuración de Entornos de Escritorio =====
+  services.desktopManager = {
+    gnome.enable = enableGNOME;
+    plasma6.enable = enablePlasma;
+  };
 }
