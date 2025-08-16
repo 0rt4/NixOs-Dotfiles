@@ -11,6 +11,15 @@
     ".face".source = ./avatar.jpg;
     ".face.icon".source = ./avatar.jpg;
   };
+
+  # ===== FUENTE NERD FONT (FIERAZO PARA POWERLEVEL10K) =====
+  fonts.fontconfig.enable = true;  # Necesario para que las aplicaciones detecten las fuentes
+  home.packages = with pkgs; [
+    # Instala FiraCode Nerd Font (o Meslo, la oficial de Powerlevel10k)
+    (nerdfonts.override { fonts = [ "FiraCode" ]; })
+    # O si prefieres Meslo (recomendada para Powerlevel10k):
+    # (nerdfonts.override { fonts = [ "Meslo" ]; })
+  ];
   
   # ===== CURSOR PERSONALIZADO =====
   home.pointerCursor = {
