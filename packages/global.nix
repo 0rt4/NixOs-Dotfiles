@@ -13,7 +13,9 @@
     steam
     git
     librewolf-bin
+    google-chrome
     bitwarden-desktop
+    github-desktop
     # - Paquetes de objetos graficos (iconos, mouse)    
 
   ];
@@ -24,11 +26,6 @@
     dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
   };
   
-  programs.zsh.enable = true;
-  environment.shells = with pkgs; [ zsh ];
-  
   # Enable CUPS to print documents.
   services.printing.enable = false;
-
-
 }

@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ pkgs, config, lib, ... }:
 
 {
   # === Aplicaciones no deseadas ===
@@ -20,28 +20,41 @@
     totem
     xterm
   ];
-
-  # === Aplicaciones extra ===
+  
   environment.systemPackages = with pkgs; [
-    # Herramientas de sistema que deseas conservar
+    # Herramientas de GNOME
+    gnome-tweaks
+    gnome-extension-manager
+    gnome-shell-extensions
     gnome-disk-utility  # Analizador de discos (baobab)
     gnome-system-monitor  # Monitor del sistema
     gnome-logs          # Visor de registros (logs)
     
-    # Herramientas adicionales de personalización
-    gnome-tweaks        # Tweaks para GNOME
-    #gnome-extension-manager   # Gestor de extensiones (alternativo)
+    #Extensiones
+    gnomeExtensions.blur-my-shell
+    gnomeExtensions.caffeine
+    gnomeExtensions.vitals
+    gnomeExtensions.gsconnect
+    gnomeExtensions.openweather-refined
+    gnomeExtensions.forge
+    gnomeExtensions.fuzzy-app-search
+    gnomeExtensions.app-menu-is-back
+    gnomeExtensions.open-bar
+    gnomeExtensions.tiling-shell
+    gnomeExtensions.vertical-workspaces
+    gnomeExtensions.search-light
+    gnomeExtensions.burn-my-windows
+    gnome-extension-manager   # Gestor de extensiones (alternativo)
   ];
-
-  # === Configuración de servicios GNOME ===
+  
+    # === Configuración de servicios GNOME ===
   services.gnome = {
     core-shell.enable = true;       # Shell básico de GNOME
     core-apps.enable = true;        # Habilita apps básicas (incluye disk-utility, system-monitor, logs)
     core-utilities.enable = true;   # Utilidades básicas (necesario para algunas herramientas)
     core-developer-tools.enable = false;  # Desactiva si no necesitas herramientas de desarrollo
   };
-
-  # Necesario para el keyring de GNOME
-  programs.dconf.enable = true;
-  services.dbus.packages = [ pkgs.gcr ];
+  # Mejorar soporte para Wayland/NVIDIA
+  services.xserver.displayManager.gdm.wayland = config.hardware.nvidia.enabled;
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
 }
