@@ -54,6 +54,7 @@
   # ===== PAQUETES ESPECÍFICOS PARA GNOME =====
   home.packages = with pkgs; [
     zsh-powerlevel10k
+    direnv
     gnomeExtensions.blur-my-shell
     gnomeExtensions.caffeine
     gnomeExtensions.vitals

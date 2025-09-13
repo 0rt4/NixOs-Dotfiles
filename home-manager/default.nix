@@ -7,18 +7,24 @@
   home.stateVersion = "25.05";
   
   # ===== ARCHIVOS PERSONALES =====
-  home.file = {
-    ".face".source = ./avatar.jpg;
-    ".face.icon".source = ./avatar.jpg;
-  };
-
+  #home.file = {
+   # ".face".source = ./avatar.jpg;
+    #".face.icon".source = ./avatar.jpg;
+  #};
+  
   # ===== FUENTE NERD FONT (FIERAZO PARA POWERLEVEL10K) =====
   fonts.fontconfig.enable = true;  # Necesario para que las aplicaciones detecten las fuentes
-  home.packages = with pkgs; [
-    # Instala FiraCode Nerd Font (o Meslo, la oficial de Powerlevel10k)
-    (nerdfonts.override { fonts = [ "FiraCode" ]; })
-    # O si prefieres Meslo (recomendada para Powerlevel10k):
-    # (nerdfonts.override { fonts = [ "Meslo" ]; })
+ home.packages = with pkgs; [
+    # Fuentes Nerd Fonts individuales
+    nerd-fonts.fira-code
+    nerd-fonts.jetbrains-mono
+    nerd-fonts.hack
+ 
+    nerd-fonts.meslo-lg  # Intenta con este nombre
+    # Otras fuentes
+    inter
+    fira-code
+    jetbrains-mono
   ];
   
   # ===== CURSOR PERSONALIZADO =====

@@ -10,12 +10,14 @@
     ghostty 
     zsh
     code-cursor
+    helix
     steam
     git
     librewolf-bin
     google-chrome
     bitwarden-desktop
-    github-desktop
+    gitkraken
+    onlyoffice-bin
     # - Paquetes de objetos graficos (iconos, mouse)    
 
   ];
