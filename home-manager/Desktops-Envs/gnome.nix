@@ -1,7 +1,6 @@
 { config, pkgs, lib, ... }:
 
 {
-  imports = [ ./default.nix ]; 
   
   # ===== Configuración dconf=====
   dconf = {
@@ -50,7 +49,7 @@
     name = "Adwaita-dark";
     package = pkgs.gnome-themes-extra;
   };
-  
+
   # ===== PAQUETES ESPECÍFICOS PARA GNOME =====
   home.packages = with pkgs; [
     zsh-powerlevel10k

@@ -27,7 +27,6 @@
       "lp"                 # Permisos de impresión
       "scanner"            # Permisos para escanear documentos
     ];
-    shell = pkgs.zsh;
   };
 
   # ====================== REGION Y LENGUAJE ======================
@@ -65,10 +64,9 @@
 
   # ======================== BOOTLOADER ==========================
 
-  boot.loader = {
-    systemd-boot.enable = true;
-    canTouchEfiVariables = true;
-  };
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+
 
   # =============== CARACTERISTICAS DEL SISTEMA OPERATIVO =================
   

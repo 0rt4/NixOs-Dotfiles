@@ -20,9 +20,4 @@
     NIXOS_OZONE_WL = "1";  # Para aplicaciones web en Wayland
     __GLX_VENDOR_LIBRARY_NAME = "nvidia";  # Para OpenGL con NVIDIA
   };
-  
-  # ===== HOME MANAGER PARA USUARIO ORTA =====
-  home-manager.users.orta = {
-    imports = [ ../home-manager/gnome.nix ];
-  };
 }
