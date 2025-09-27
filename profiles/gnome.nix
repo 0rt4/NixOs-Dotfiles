@@ -3,15 +3,12 @@
 {
   # ===== HEREDAR CONFIGURACIÓN COMÚN =====
   imports = [ 
-    ./default.nix 
-    ../packages/gnome-pkgs.nix   # PAQUETES ESPECÍFICOS PARA GNOME
+    ./packages/gnome.nix   # PAQUETES ESPECÍFICOS PARA GNOME
   ];
   
   # ===== HABILITAR GNOME =====
-  services.xserver = {
-    enable = true;
-    desktopManager.gnome.enable = true;
-  };
+  services.desktopManager.gnome.enable = true;
+  services.displayManager.gdm.enable = true;
  
   # ===== CONFIGURACIONES ESPECIALES =====
   programs.dconf.enable = true;  # Necesario para GNOME
