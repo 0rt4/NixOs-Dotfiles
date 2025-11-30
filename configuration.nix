@@ -1,75 +1,75 @@
-{ config, ... }:
+{ config, pkgs, lib, ... }:
 
 {
-  # Importación de Configuraciones
-  imports = [
-    ./hardware-configuration.nix
-
-    ./services/audio.nix
-    ./services/network.nix
-    ./services/video.nix
-
-    ./profiles/gnome.nix    # Para GNOME
-    ./profiles/hyprland.nix # Para Hyprland
-  ];
-
-  # ====================== CONFIGURACIONES INDISPENSABLES PARA FUNCIONAR EL SISTEMA ==================
-  
-  users.users.orta = {
-    isNormalUser = true;
-    description = "Christopher";
-    extraGroups = [ 
-      "networkmanager"     # Gestionar conexiones de red
-      "wheel"              # Permisos de administrador
-      "video"              # Acceso a configuraciones de gráficos/aceleración
-      "audio"              # Control de dispositivos de sonido
-      "storage"            # Acceso a discos externos
-      "lp"                 # Permisos de impresión
-      "scanner"            # Permisos para escanear documentos
-    ];
+  # Bootloader
+  boot.loader = {
+    systemd-boot.enable = true;
+    efi.canTouchEfiVariables = true;
   };
 
-  # ====================== REGION Y LENGUAJE ======================
+  # Networking
+  networking.hostName = "nixos"; # Cambia esto por tu hostname
 
+  # Zona horaria y localización
   time.timeZone = "America/Mexico_City";
   i18n.defaultLocale = "es_MX.UTF-8";
   
-  services.xserver.xkb.layout = "latam"; # Configurar Distribución de Teclado en X11
-  console.keyMap = "la-latin1"; # Configurar Distribución de Teclado en Consola
+  i18n.extraLocaleSettings = {
+    LC_ADDRESS = "es_MX.UTF-8";
+    LC_IDENTIFICATION = "es_MX.UTF-8";
+    LC_MEASUREMENT = "es_MX.UTF-8";
+    LC_MONETARY = "es_MX.UTF-8";
+    LC_NAME = "es_MX.UTF-8";
+    LC_NUMERIC = "es_MX.UTF-8";
+    LC_PAPER = "es_MX.UTF-8";
+    LC_TELEPHONE = "es_MX.UTF-8";
+    LC_TIME = "es_MX.UTF-8";
+  };
 
-  services.displayManager.gdm.enable = true; #Display Manager
+  # Usuarios
+  users.users.orta = {
+    isNormalUser = true;
+    description = "Christopher Orta";
+    extraGroups = [ "networkmanager" "wheel" "audio" "video" ];
+  };
 
-  # ===============CONFIGURACIONES EXPERIMENTALES=================
-
-  nix.settings.experimental-features = [ "nix-command" "flakes" ]; 
+  # Permitir paquetes unfree
   nixpkgs.config.allowUnfree = true;
-  
-  programs.zsh.enable = true;
 
-  # Configuración de Syncthing
-  services.syncthing = {
-    enable = true;
-    openDefaultPorts = true; # Abrir Puertos Predeterminados en el Firewall para Syncthing
+  # Habilitar flakes y comando nix experimental
+  nix.settings = {
+    experimental-features = [ "nix-command" "flakes" ];
+    auto-optimise-store = true;
   };
 
-  # Configuración de Steam
-  programs.steam = {
+  # Garbage collection automático
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 7d";
+  };
+
+  # Paquetes del sistema base
+  environment.systemPackages = with pkgs; [
+    wget
+    git
+    curl
+    unzip
+    zip
+  ];
+
+  # OpenSSH (opcional)
+  # services.openssh.enable = true;
+
+  # Firewall
+  networking.firewall = {
     enable = true;
-    remotePlay.openFirewall = true; # Abrir Puertos en el Firewall para Steam Remote Play
-    dedicatedServer.openFirewall = true; # Abrir Puertos en el Firewall para Servidor Dedicado de Source
+    # allowedTCPPorts = [ ];
+    # allowedUDPPorts = [ ];
   };
   
-  # Servicio CUPS para Impresoras
-  services.printing.enable = false;
-
-  # ======================== BOOTLOADER ==========================
-
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-
-
-  # =============== CARACTERISTICAS DEL SISTEMA OPERATIVO =================
+  programs.steam.enable = true;
   
-  networking.hostName = "nixos";
-  system.stateVersion = "25.05";
+  # No cambiar esto sin entender las implicaciones
+  system.stateVersion = "24.11";
 }

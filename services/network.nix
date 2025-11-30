@@ -1,54 +1,40 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
-  networking.networkmanager.enable = true;  # NetworkManager gestionará WiFi
+  # NetworkManager
+  networking.networkmanager.enable = true;
 
-  # Configura redes WiFi directamente en NetworkManager (no en networking.wireless)
-  environment.etc."NetworkManager/system-connections/Bolillo_Premium_Extra_Crujient_.nmconnection" = {
-    text = ''
-      [connection]
-      id=Bolillo_Premium_Extra_Crujient_
-      type=wifi
-
-      [wifi]
-      mode=infrastructure
-      ssid=Bolillo_Premium_Extra_Crujient_
-
-      [wifi-security]
-      key-mgmt=wpa-psk
-      psk=dTDh7Z9cmGXbEAX
-
-      [ipv4]
-      method=auto
-
-      [ipv6]
-      addr-gen-mode=stable-privacy
-      method=auto
-    '';
-    mode = "0600";  # Permisos seguros
+  # Habilitar Bluetooth
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+    settings = {
+      General = {
+        Enable = "Source,Sink,Media,Socket";
+        Experimental = true;
+      };
+    };
   };
 
-  # + Abrir puertos de Firewall
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # + Desactivarlos todos de una
-  # networking.firewall.enable = false;
+  # Blueman (gestor gráfico de Bluetooth)
+  #services.blueman.enable = true;
 
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-  
-  # + Configuración de SSH
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
+  # Firewall
+  networking.firewall = {
+    enable = true;
+    allowedTCPPorts = [ ];
+    allowedUDPPorts = [ ];
+    # Para KDE Connect (si lo usas)
+    # allowedTCPPortRanges = [ { from = 1714; to = 1764; } ];
+    # allowedUDPPortRanges = [ { from = 1714; to = 1764; } ];
+  };
 
-  # + Configuración de proxis
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+  # DNS
+  networking.nameservers = [ "1.1.1.1" "8.8.8.8" ];
 
-
+  # Paquetes de red
+  environment.systemPackages = with pkgs; [
+    networkmanagerapplet
+    wireguard-tools
+  ];
 }

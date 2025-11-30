@@ -1,34 +1,41 @@
-{ config, pkgs, ... }:
-
+{ config, pkgs, lib, ... }:
 {
-  # Configuración de hardware gráfico (NO activar Xserver aquí)
+  # Graphics (antes OpenGL)
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
+    
+    # Paquetes adicionales para graphics
+    extraPackages = with pkgs; [
+      intel-media-driver
+      intel-vaapi-driver
+      libva-vdpau-driver
+      libva-vdpau-driver
+    ];
   };
-
-  # Configuración específica de NVIDIA
-  hardware.nvidia = {
-    modesetting.enable = true;
-    powerManagement.enable = true;
-    open = false;
-    nvidiaSettings = true;
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
-    prime = {
-      sync.enable = true;
-      intelBusId = "PCI:0:2:0";
-      nvidiaBusId = "PCI:1:0:0";
-    };
-  };
-
-  # Solo drivers X11 (necesario para ambos entornos)
-  services.xserver.videoDrivers = [ "nvidia" ];
-
-  # Paquetes relacionados con gráficos (comunes para ambos entornos)
+  
+  # NVIDIA (descomenta si tienes GPU NVIDIA)
+   services.xserver.videoDrivers = [ "nvidia" ];
+   hardware.nvidia = {
+     modesetting.enable = true;
+     powerManagement.enable = false;
+     powerManagement.finegrained = false;
+     open = false;
+     nvidiaSettings = true;
+     package = config.boot.kernelPackages.nvidiaPackages.stable;
+   };
+  # AMD (descomenta si tienes GPU AMD)
+  # services.xserver.videoDrivers = [ "amdgpu" ];
+  # hardware.graphics.extraPackages = with pkgs; [
+  #   rocm-opencl-icd
+  #   rocm-opencl-runtime
+  # ];
+  # Intel (ya incluido arriba, pero puedes especificar el driver)
+  # services.xserver.videoDrivers = [ "modesetting" ];
+  # Paquetes de video
   environment.systemPackages = with pkgs; [
+    mesa-demos
     vulkan-tools
-    libvdpau-va-gl
-    glxinfo
-    mesa
+    # gpu-screen-recorder  # Para grabación de pantalla con GPU
   ];
 }

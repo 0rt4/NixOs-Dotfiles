@@ -1,0 +1,113 @@
+{ config, pkgs, lib, ... }:
+
+{
+  # Plantilla para configurar aplicaciones
+  # Copia este archivo y renómbralo según la app que quieras configurar
+  
+  # Ejemplo 1: Configurar VSCode
+  # programs.vscode = {
+  #   enable = true;
+  #   extensions = with pkgs.vscode-extensions; [
+  #     bbenoist.nix
+  #     ms-python.python
+  #     vscodevim.vim
+  #   ];
+  #   userSettings = {
+  #     "editor.fontSize" = 14;
+  #     "editor.fontFamily" = "'JetBrainsMono Nerd Font'";
+  #     "workbench.colorTheme" = "Catppuccin Mocha";
+  #   };
+  # };
+
+  # Ejemplo 2: Configurar Git avanzado
+  # programs.git = {
+  #   enable = true;
+  #   userName = "Tu Nombre";
+  #   userEmail = "tu-email@ejemplo.com";
+  #   aliases = {
+  #     co = "checkout";
+  #     br = "branch";
+  #     ci = "commit";
+  #     st = "status";
+  #   };
+  #   extraConfig = {
+  #     init.defaultBranch = "main";
+  #     core.editor = "vim";
+  #   };
+  # };
+
+  # Ejemplo 3: Configurar Kitty terminal
+  # programs.kitty = {
+  #   enable = true;
+  #   font = {
+  #     name = "JetBrainsMono Nerd Font";
+  #     size = 12;
+  #   };
+  #   theme = "Catppuccin-Mocha";
+  #   settings = {
+  #     background_opacity = "0.95";
+  #     confirm_os_window_close = 0;
+  #     enable_audio_bell = false;
+  #   };
+  # };
+
+  # Ejemplo 4: Configurar Alacritty
+  # programs.alacritty = {
+  #   enable = true;
+  #   settings = {
+  #     window = {
+  #       opacity = 0.95;
+  #       padding = {
+  #         x = 10;
+  #         y = 10;
+  #       };
+  #     };
+  #     font = {
+  #       normal.family = "JetBrainsMono Nerd Font";
+  #       size = 12;
+  #     };
+  #   };
+  # };
+
+  # Ejemplo 5: Configurar Starship (prompt)
+  # programs.starship = {
+  #   enable = true;
+  #   settings = {
+  #     add_newline = false;
+  #     character = {
+  #       success_symbol = "[➜](bold green)";
+  #       error_symbol = "[➜](bold red)";
+  #     };
+  #   };
+  # };
+
+  # Ejemplo 6: Añadir archivos de configuración personalizados
+  # home.file = {
+  #   ".config/nombre-app/config.conf".text = ''
+  #     opcion1 = valor1
+  #     opcion2 = valor2
+  #   '';
+  #   
+  #   # O desde un archivo externo:
+  #   # ".config/nombre-app/config.conf".source = ./config.conf;
+  # };
+
+  # Ejemplo 7: Variables de entorno específicas de la app
+  # home.sessionVariables = {
+  #   VARIABLE_APP = "valor";
+  # };
+
+  # Ejemplo 8: Servicios de usuario (systemd)
+  # systemd.user.services.mi-servicio = {
+  #   Unit = {
+  #     Description = "Mi servicio personalizado";
+  #   };
+  #   Service = {
+  #     ExecStart = "${pkgs.mi-paquete}/bin/comando";
+  #     Restart = "always";
+  #   };
+  #   Install = {
+  #     WantedBy = [ "default.target" ];
+  #   };
+  # };
+}

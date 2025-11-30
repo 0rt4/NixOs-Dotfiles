@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+
+# Script para limpiar generaciones antiguas y optimizar el store
+# Coloca este archivo en ~/nixos-config/modules/scripts/clean.sh
+
+set -e
+
+echo "🧹 Limpiando sistema NixOS..."
+
+# Eliminar generaciones antiguas (más de 3 días)
+echo "🗑️  Eliminando generaciones antiguas del sistema..."
+sudo nix-collect-garbage --delete-older-than 1d
+
+# Eliminar generaciones antiguas del usuario
+echo "🗑️  Eliminando generaciones antiguas del usuario..."
+nix-collect-garbage --delete-older-than 1d
+
+# Optimizar el store
+echo "⚡ Optimizando Nix store..."
+nix-store --optimise
+nix store gc --debug
+sudo nix flake cleanup --all
+
+
+# Archivos temporales
+echo "🗑️ Borrando archivos temporales..."
+sudo rm -rf /tmp/*
+sudo rm -rf /var/tmp/*
+sudo rm -rf ~/.cache/*
+sudo rm -rf /var/lib/systemd/coredump/*
+sudo nix-env --delete-generations old
+sudo nix-collect-garbage -d
+
+rm -f "$PLAYLIST"
+sudo journalctl --vacuum-time=7d
+sudo 
+
+
+# Mostrar espacio liberado
+echo "📊 Uso actual del disco:"
+df -h /nix
+
+echo "✅ Limpieza completada!"
