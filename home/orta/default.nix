@@ -4,6 +4,7 @@
   imports = [
     ./packages.nix
     ./programs
+    ./themes
   ];
 
   # ===== CONFIGURACIÓN BÁSICA DE USUARIO =====
@@ -24,16 +25,6 @@
     home.sessionVariables = {
       EDITOR = "helix";
       # SHELL = "${pkgs.zsh}/bin/zsh";
-    };
-
-    # ===== CURSOR Y FUENTES PERSONALIZADAS =====
-    fonts.fontconfig.enable = true;
-    home.pointerCursor = {
-      name = "Bibata-Modern-Classic";
-      package = pkgs.bibata-cursors;
-      size = 24;
-      gtk.enable = true;
-      x11.enable = true;
     };
 
     # ===== SHELL ZSH =====

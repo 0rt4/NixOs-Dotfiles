@@ -13,6 +13,8 @@ let
      };
   };
 in
+
+# ============================= Configuración ============================
 {
   # Configuración común para todos los desktops
     programs.xwayland.enable = true;
@@ -24,6 +26,11 @@ in
     };
   };
 
+  # Sonido (común para todos)
+  security.rtkit.enable = true;
+
+
+# ======================= Sistema de loggin (SSDM) =====================
   services.displayManager.sddm = { 
       enable = true;
       wayland.enable = true;
@@ -38,7 +45,9 @@ in
       extraPackages = with pkgs; [ sddm-astronaut kdePackages.qtmultimedia];
   };
 
-  # Fuentes
+# =============================== Fuentes ==============================
+  fonts.fontconfig.enable = true;
+  
   fonts.packages = with pkgs; [
     # Nerd Fonts individuales
     nerd-fonts.ubuntu
@@ -53,10 +62,7 @@ in
     inter
   ];
 
-  # Sonido (común para todos)
-  security.rtkit.enable = true;
-
-  # Paquetes básicos para todos
+# ========================== PKGS PARA LAPTOP ==========================
   environment.systemPackages = with pkgs; [
     sddm-astronaut
     kdePackages.qtmultimedia

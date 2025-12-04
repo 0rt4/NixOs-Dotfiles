@@ -2,10 +2,6 @@
 {
   qt = {
     enable = true;
-    platformTheme = "qtct";
-    style = {
-      name = "kvantum-dark";
-      package = pkgs.libsForQt5.qtstyleplugin-kvantum;
-    };
+    platformTheme.name = "gtk";
   };
 }
