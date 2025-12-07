@@ -14,6 +14,6 @@ cd "$FLAKE_DIR"
 
 # Rebuild del sistema sin actualizar
 echo "🔨 Aplicando cambios..."
-sudo nixos-rebuild switch --flake ".#$HOSTNAME"
+sudo nixos-rebuild switch --flake ".#$laptop"
 
 echo "✅ Rebuild completado!"

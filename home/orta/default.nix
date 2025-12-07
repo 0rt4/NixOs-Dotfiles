@@ -9,8 +9,13 @@
 
   # ===== CONFIGURACIÓN BÁSICA DE USUARIO =====
     home = {
+<<<<<<< Updated upstream:home/orta/default.nix
       username = "orta";
       homeDirectory = "/home/orta";
+=======
+      username = "Orta";
+      homeDirectory = "/home/Orta";
+>>>>>>> Stashed changes:home/Orta/default.nix
       stateVersion = "25.05";
     };
 
@@ -24,6 +29,7 @@
     # Variables de entorno
     home.sessionVariables = {
       EDITOR = "helix";
+<<<<<<< Updated upstream:home/orta/default.nix
       # SHELL = "${pkgs.zsh}/bin/zsh";
     };
 
@@ -45,3 +51,8 @@
       '';
     };
 }
+=======
+			SHELL = "${pkgs.fish}/bin/fish";
+    };
+}
+>>>>>>> Stashed changes:home/Orta/default.nix
