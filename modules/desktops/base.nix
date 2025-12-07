@@ -1,8 +1,4 @@
-<<<<<<< Updated upstream
-{ config, pkgs, ... }:
-=======
 { config, pkgs, lib, ... }:
->>>>>>> Stashed changes
 
 let
   sddm-astronaut = pkgs.sddm-astronaut.override {
@@ -35,20 +31,11 @@ in
 
 
 # ======================= Sistema de loggin (SSDM) =====================
-<<<<<<< Updated upstream
-  services.displayManager.sddm = { 
-      enable = true;
-      wayland.enable = true;
-      package = pkgs.kdePackages.sddm;
-      theme = "sddm-astronaut-theme"; 
-      
-=======
   services.displayManager.sddm = {
       enable = lib.mkDefault true;
       wayland.enable = true;
       theme = "sddm-astronaut-theme";
 
->>>>>>> Stashed changes
       settings = {
         Theme = {
           CursorTheme = "Bibata-Modern-Classic";
@@ -59,11 +46,7 @@ in
 
 # =============================== Fuentes ==============================
   fonts.fontconfig.enable = true;
-<<<<<<< Updated upstream
-  
-=======
 
->>>>>>> Stashed changes
   fonts.packages = with pkgs; [
     # Nerd Fonts individuales
     nerd-fonts.ubuntu
@@ -78,14 +61,6 @@ in
     inter
   ];
 
-<<<<<<< Updated upstream
-# ========================== PKGS PARA LAPTOP ==========================
-  environment.systemPackages = with pkgs; [
-    sddm-astronaut
-    kdePackages.qtmultimedia
-  ];
-}
-=======
 # ========================== PKGS GLOBALES ==========================
   environment.systemPackages = with pkgs; [
     # Tema SDDM
@@ -99,4 +74,3 @@ in
     loupe
   ];
 }
->>>>>>> Stashed changes

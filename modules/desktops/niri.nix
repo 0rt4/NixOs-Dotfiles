@@ -25,25 +25,13 @@ with lib;
   config = mkIf config.desktops.niri.enable {
     # Variables de entorno para Wayland - SOLO CON NIRI ACTIVO
     environment.sessionVariables = {
-<<<<<<< Updated upstream
-=======
     		ELECTRON_OZONE_PLATFORM_HINT ="wayland";
->>>>>>> Stashed changes
       NIXOS_OZONE_WL = "1";
       MOZ_ENABLE_WAYLAND = "1";
       QT_QPA_PLATFORM = "wayland";
       SDL_VIDEODRIVER = "wayland";
       _JAVA_AWT_WM_NONREPARENTING = "1";
       # QML_IMPORT_PATH = "${pkgs.qml-niri}/lib/qt-6/qml";
-<<<<<<< Updated upstream
-    };
-
-    # Usa el flake de niri (ya importado en flake.nix)
-    programs.niri = {
-      enable = true;
-      package = inputs.niri.packages.${pkgs.system}.niri-stable;
-    };
-=======
 			#SHELL = "${pkgs.fish}/bin/fish";
     };
 
@@ -52,7 +40,6 @@ with lib;
 			enable = true;
 			package = pkgs.niri;  # Usar el de nixpkgs
 		};
->>>>>>> Stashed changes
     
     environment.systemPackages = config.desktops.niri.packages;
     
@@ -79,21 +66,5 @@ with lib;
       extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
       config.common.default = "*";
     };
-<<<<<<< Updated upstream
-
-    # Display manager
-    services.greetd = {
-      enable = true;
-      settings = {
-        default_session = {
-          command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd niri-session";
-          user = "greeter";
-        };
-      };
-    };
   };
 }
-=======
-  };
-}
->>>>>>> Stashed changes

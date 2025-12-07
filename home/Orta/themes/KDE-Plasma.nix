@@ -11,7 +11,7 @@
         size = 32;
       };
       iconTheme = "Papirus-Dark";
-      #wallpaper = "/home/Orta/Imágenes/Wallpapers/01.png";
+      #wallpaper = "/home/orta/Imágenes/Wallpapers/01.png";
     };
 
     hotkeys.commands."launch-konsole" = {

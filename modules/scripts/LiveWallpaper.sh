@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-DIR="/home/Orta/Vídeos/wallpapers"
+DIR="/home/orta/Vídeos/wallpapers"
 MONITOR="eDP-1"
 
 # Verificar que el directorio existe
