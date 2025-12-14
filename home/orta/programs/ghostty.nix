@@ -11,7 +11,7 @@
       theme = "Cyberpunk Scarlet Protocol";
 
       # Fuente: Nombre de la fuente y tamaño
-      font-family = "JetBrains Mono";
+      font-family = "JetBrainsMono Nerd Font";
       font-size = 12;
 
       # Transparencia (opcional): las opciones usan guiones bajos aquí

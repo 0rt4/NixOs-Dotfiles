@@ -25,9 +25,9 @@
       gl = "git log --oneline --graph --decorate";
 
       # NixOS
-      rebuild-Laptop = "/etc/nixos/modules/scripts/rebuild.sh";
-      update = "/etc/nixos/modules/scripts/update.sh";
-      clean = "/etc/nixos/modules/scripts/clean.sh";
+      rebuild-laptop = "/etc/nixos/modules/scripts/rebuild-laptop";
+      update-laptop = "/etc/nixos/modules/scripts/update-laptop";
+      clean = "/etc/nixos/modules/scripts/clean";
       appdrawer = "/etc/nixos/modules/scripts/appdrawer";
       bgselector = "/etc/nixos/modules/scripts/bgselector";
       colorwaybar = "/etc/nixos/modules/scripts/colorwaybar";
@@ -36,7 +36,6 @@
       volumenosd = "/etc/nixos/modules/scripts/volumenosd";
 
       # Utilidades
-      cat = "bat --style=plain";
       grep = "rg";
       du = "ncdu";
       df = "duf";
@@ -45,7 +44,7 @@
 
     shellInit = ''
       # Deshabilitar el saludo de Fish
-      set -U fish_greeting
+      # set -U fish_greeting
 
       # Configurar PATH
       fish_add_path ~/.local/bin
@@ -144,23 +143,26 @@
       '';
 
       fish_greeting = ''
-        # Colores NixOS
-        set -l blue (set_color -o 7ebae4)
-        set -l lblue (set_color -o 5277c3)
-        set -l reset (set_color normal)
+        # Colores
+        set -l cyan (set_color -o 7ebae4)
+        set -l blue (set_color -o 5277c3)
         set -l gray (set_color 666)
+        set -l white (set_color -o white)
+        set -l reset (set_color normal)
 
-        # Logo NixOS ASCII
+        # Obtener información del sistema
+        set -l kernel (uname -r)
+        set -l shell (basename $SHELL)
+        set -l de (echo $XDG_CURRENT_DESKTOP)
+        
+        # Contar número de generaciones (rebuilds)
+
         echo ""
-        echo "$blue          ▗▄▄▄$reset       $lblue▗▄▄▄▄$reset    "
-        echo "$blue      ▗▄▄▖$reset$blue▝▀▀▀▀$reset     $lblue▝▀▀▀▀▀▀▖$reset"
-        echo "$blue  ▗▘$reset     $gray█▄ █ █ ▀▄▀$reset     $lblue▝▖$reset"
-        echo "$blue  ▝▖$reset     $gray█ ▀█ █ █ █$reset     $lblue▗▘$reset"
-        echo "$blue    ▀▄▖$reset                 $lblue▗▄▀$reset"
-        echo "$blue      ▝▀▀▄$reset$blue▄▄▄▄$reset     $lblue▄▄▄▄▄▄▘$reset"
-        echo "$blue          ▝▀▀▀$reset       $lblue▝▀▀▀▀$reset"
-        echo ""
-        echo "$gray              Let's build.$reset"
+        echo "  ┌───────────────── $white Hardware $reset ────────────────────┐	┌───────────── $white Software $reset ──────────────┐"
+        echo "   $gray 󰻠  CPU:Intel Core i7-9750H CPU @ 2.60GHz       $reset│	 $gray   Kernel:$reset $kernel 	"	
+        echo "   $gray 󰘚  GPU:NVIDIA GeForce GTX 1650 Mobile          $reset│	 $gray   Shell:$reset $shell 	"	
+        echo "   $blue  $gray Christopher Orta		            $reset│	 $gray 󰢹  DE:$reset $de 		"
+        echo "  └─────────────────────────────────────────────────┘	└───────────────────────────────────────┘"
         echo ""
       '';
     };

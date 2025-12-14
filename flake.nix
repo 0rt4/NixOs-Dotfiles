@@ -34,11 +34,11 @@
     system = "x86_64-linux";
   in {
     nixosConfigurations = {
-      Omen-Laptop = nixpkgs.lib.nixosSystem {
+      omen-laptop = nixpkgs.lib.nixosSystem {
         inherit system;
         specialArgs = { inherit inputs; };
         modules = [
-          ./hosts/Omen-Laptop  
+          ./hosts/omen-laptop  
 
           home-manager.nixosModules.home-manager
           {
@@ -46,9 +46,9 @@
             home-manager.useUserPackages = true;
             home-manager.extraSpecialArgs = { inherit inputs; };
             home-manager.backupFileExtension = "backup";
-            home-manager.users.Orta = { inputs, ... }: {
+            home-manager.users.orta = { inputs, ... }: {
               imports = [
-                ./home/Orta
+                ./home/orta
               ];
             };
           }

@@ -9,21 +9,21 @@
 
   # ===== CONFIGURACIÓN BÁSICA DE USUARIO =====
     home = {
-      username = "Orta";
-      homeDirectory = "/home/Orta";
-      stateVersion = "25.05";
+      username = "orta";
+      homeDirectory = "/home/orta";
+      stateVersion = "25.11";
     };
 
     # Git config
     programs.git.settings = {
       enable = true;
-      userName = "Tu Nombre";
-      userEmail = "tu@email.com";
+      userName = "0rt4";
+      userEmail = "ortal.christopher@outlook.com";
     };
 
     # Variables de entorno
     home.sessionVariables = {
       EDITOR = "helix";
-			SHELL = "${pkgs.fish}/bin/fish";
+      SHELL = "${pkgs.fish}/bin/fish";
     };
 }

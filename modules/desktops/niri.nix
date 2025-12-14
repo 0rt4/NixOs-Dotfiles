@@ -15,8 +15,9 @@ with lib;
         hyprlock
         mpvpaper
         xwayland-satellite
-        # slurp
-        # wl-clipboard
+        wf-recorder
+        slurp
+        wl-clipboard
       ];
       description = "Paquetes para Niri";
     };
@@ -25,7 +26,7 @@ with lib;
   config = mkIf config.desktops.niri.enable {
     # Variables de entorno para Wayland - SOLO CON NIRI ACTIVO
     environment.sessionVariables = {
-    		ELECTRON_OZONE_PLATFORM_HINT ="wayland";
+      ELECTRON_OZONE_PLATFORM_HINT ="wayland";
       NIXOS_OZONE_WL = "1";
       MOZ_ENABLE_WAYLAND = "1";
       QT_QPA_PLATFORM = "wayland";
@@ -36,10 +37,10 @@ with lib;
     };
 
     # Usa el flake de niri (ya importado en flake.nix)
-		programs.niri = {
-			enable = true;
-			package = pkgs.niri;  # Usar el de nixpkgs
-		};
+    programs.niri = {
+      enable = true;
+      package = pkgs.niri;  # Usar el de nixpkgs
+    };
     
     environment.systemPackages = config.desktops.niri.packages;
     

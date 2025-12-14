@@ -17,9 +17,8 @@ nix-collect-garbage --delete-older-than 1d
 
 # Optimizar el store
 echo "⚡ Optimizando Nix store..."
-nix-store --optimise
-nix store gc --debug
-sudo nix flake cleanup --all
+sudo nix-store --optimise
+sudo nix store gc
 
 
 # Archivos temporales
@@ -29,15 +28,8 @@ sudo rm -rf /var/tmp/*
 sudo rm -rf ~/.cache/*
 sudo rm -rf /var/lib/systemd/coredump/*
 sudo nix-env --delete-generations old
-sudo nix-collect-garbage -d
 
 rm -f "$PLAYLIST"
 sudo journalctl --vacuum-time=7d
-sudo 
-
-
-# Mostrar espacio liberado
-echo "📊 Uso actual del disco:"
-df -h /nix
 
 echo "✅ Limpieza completada!"

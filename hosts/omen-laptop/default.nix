@@ -15,6 +15,10 @@
   ];
 
 # ================== Habilitar desktops (cambia según quieras) ====================
+  # SE RECOMIENDA: Siemre activar uno solo, aunque puedas activar mas de uno
+  # algunos no son compatibles entre si (Ej: Plasma + Niri). Considera de todas maneras
+  # que puedes Activar uno u otro con facilidad, por lo que no sera necesario activar
+  # más de 2 al mismo tiempo
   desktops = {
     gnome.enable = true;
     #plasma.enable = false;
@@ -24,12 +28,37 @@
   };
 
   # Hostname
-  networking.hostName = "Omen-Laptop";
+  networking.hostName = "omen-laptop";
 
   # Timezone y locale
   time.timeZone = "America/Mexico_City";
-  i18n.defaultLocale = "es_MX.UTF-8";
+  i18n = {
+    defaultLocale = "es_MX.UTF-8";
+    extraLocaleSettings = {
+      LC_ADDRESS = "es_MX.UTF-8";
+      LC_IDENTIFICATION = "es_MX.UTF-8";
+      LC_MEASUREMENT = "es_MX.UTF-8";
+      LC_MONETARY = "es_MX.UTF-8";
+      LC_NAME = "es_MX.UTF-8";
+      LC_NUMERIC = "es_MX.UTF-8";
+      LC_PAPER = "es_MX.UTF-8";
+      LC_TELEPHONE = "es_MX.UTF-8";
+      LC_TIME = "es_MX.UTF-8";
+    };
+  };
+  
+  # Configuración del teclado (NUEVA SINTÁXIS)
+  services.xserver = {
+    enable= true;
+      xkb = {
+        layout = "latam";
+        options = "";
+      };
+   };
 
+  # Para Wayland/consola
+  console.keyMap = "la-latin1";  # Para consola TTY
+  
   # Touchpad (para laptops)
   services.libinput = {
     enable = true;
@@ -41,15 +70,15 @@
 
 
 # =============================  Usuario   ====================================
-  users.users.Orta = {
+  users.users.orta = {
     isNormalUser = true;
     description = "Christopher Orta";
     extraGroups = [ "networkmanager" "wheel" "video" "audio" ];
-  		shell = pkgs.fish;
+    shell = pkgs.fish;
   };
 
-	# Funciones experimentales
-	programs.fish.enable = true;
+  # Funciones experimentales
+  programs.fish.enable = true;
   nixpkgs.config.allowUnfree = true;
 
   # Paquetes del sistema
@@ -57,21 +86,19 @@
     wget
     git
     curl
+    jq
     helix # Editor de texto moderno
     direnv # Gestión de entornos
 
     # Terminal
-    # alacritty
-    # kitty
     ghostty
 
     # CLI Tools
-    # zsh-powerlevel10k
+    duf
     eza        # ls moderno con iconos
-    ncdu       # analizador de disco interactivo (ELIMINA dust)
-    btop       # monitor de sistema completo (ELIMINA procs)
+    ncdu       # analizador de disco interactivo
+    btop       # monitor de sistema completo 
     yazi       # file manager TUI
-    fzf        # fuzzy finder
     ripgrep    # grep rápido
     fd         # find mejorado
     zoxide     # cd inteligente
@@ -130,5 +157,5 @@
     memoryPercent = 50;
   };
 
-  system.stateVersion = "25.05";
+  system.stateVersion = "25.11";
 }

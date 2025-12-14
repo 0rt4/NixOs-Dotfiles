@@ -17,14 +17,15 @@
 
       # Estructura del Prompt (Líneas ╭─ y ╰─)
       format = ''
-        [╭─](#7A8AFF)$username$hostname$directory$git_branch$git_status$git_state$cmd_duration
+        [╭─](#7A8AFF)$username $hostname $directory $git_branch$git_status$git_state$cmd_duration
+        [│](#7A8AFF)$custom
         [╰─ | ](#7A8AFF)$character
       '';
 
       # Caracteres de Éxito/Error
       character = {
-        success_symbol = "[ ](bold #0084B6)"; 
-        error_symbol = "[ ](bold #c93030)"; # Rojo principal para errores
+        success_symbol = "[  ](bold #0084B6)"; 
+        error_symbol = "[  ](bold #c93030)"; # Rojo principal para errores
         vicmd_symbol = "[ ](bold #B600B6)"; 
       };
 
@@ -41,14 +42,14 @@
       hostname = {
         ssh_only = false;
         style = "bg:#c93030 fg:#E4E4E4"; 
-        format = "[](fg:#c93030)[  $hostname ]($style)[](fg:#c93030)";
+        format = "[ ](fg:#c93030)[  $hostname ]($style)[ ](fg:#c93030)";
         disabled = false;
       };
 
       # Directorio
       directory = {
         style = "bg:#0099ff fg:#E4E4E4"; 
-        format = "[](fg:#0099ff)[ $path]($style)[](fg:#0099ff)";
+        format = "[ ](fg:#0099ff)[ $path]($style)[ ](fg:#0099ff)";
         truncation_length = 3;
         truncation_symbol = "…/";
         truncate_to_repo = true;
@@ -159,6 +160,38 @@
         map_symbol = true;
         disabled = false;
       };
+      
+      	# Módulo Custom: Reloj
+	custom.clock = {
+	  command = "date '+%I:%M %p'";
+	  when=true;
+	  format = "[](#7A8AFF)[󰥔 ](fg:#FFA3C9)[$output  ](bold #FFEB95)";
+	  description = "Hora actual (12h)";
+	};
+
+	# Módulo Custom: CPU
+	custom.cpu = {
+	  command = "grep 'cpu ' /proc/stat | awk '{usage=($2+$4)*100/($2+$4+$5)} END {printf \"%.1f\", usage}'";
+	  when = true;
+	  format = "[ ](fg:#0099ff)[ $output% ](bold #FFEB95) ";
+	  description = "Uso de CPU";
+	};
+	
+	# Módulo Custom: RAM
+	custom.ram = {
+	  command = "free -h | awk '/^Mem:/ {print $3 \"/\" $2}'";
+	  when = true;
+	  format = "[│](#7A8AFF)[   ](fg:#0099ff)[ $output ](bold #FFEB95) ";
+	  description = "Uso de RAM";
+	};
+
+	# Módulo Custom: Disco
+	custom.disk = {
+	  command = "command df -h / | awk 'NR==2 {print $3 \"/\" $2}'";
+	  when=true;
+	  format = "[│](#7A8AFF)[  ](fg:#0099ff)[ $output ](bold #FFEB95)";
+	  description = "Uso de disco raíz";
+	};
 
       line_break = { disabled = false; };
     };

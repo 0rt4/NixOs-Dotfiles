@@ -5,7 +5,7 @@
     ./QT.nix
 
     #temas de Desktops
-    #./KDE-Plasma.nix
-    ./Niri.nix
+    #./DE: KDE-Plasma.nix
+    ./DE_Niri.nix
   ];
 }

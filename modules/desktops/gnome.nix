@@ -19,7 +19,6 @@ with lib;
         gnome-text-editor
 
         # Extensiones
-        gnomeExtensions.blur-my-shell
         gnomeExtensions.caffeine
         gnomeExtensions.vitals
         gnomeExtensions.gsconnect
@@ -45,8 +44,8 @@ with lib;
       description = "Paquetes de GNOME a excluir";
       type = types.listOf types.package;
       default = with pkgs; [
-        #gnome-tour
-        #gnome-connections
+        gnome-tour
+        gnome-connections
         epiphany
         geary
       ];

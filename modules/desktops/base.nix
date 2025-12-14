@@ -27,7 +27,7 @@ in
   };
 
   # Sonido (común para todos)
-  security.rtkit.enable = true;
+  #security.rtkit.enable = true;
 
 
 # ======================= Sistema de loggin (SSDM) =====================

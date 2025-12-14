@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+# Script para actualizar NixOS desde flake con confirmación
+
+set -e
+
+FLAKE_DIR="${FLAKE_DIR:-/etc/nixos}"
+HOSTNAME="${HOSTNAME:-omen-laptop}"
+
+echo "󱓟  Actualizando NixOS desde flake..."
+echo "  Directorio: $FLAKE_DIR"
+echo "  Hostname: $HOSTNAME"
+
+cd "$FLAKE_DIR"
+
+# Actualizar flake.lock (siempre seguro)
+echo "󰏖 Actualizando inputs del flake..."
+sudo nix flake update
+
+# Mostrar cambios
+echo ""
+echo "󱝩 Cambios disponibles:"
+sudo nix flake update --dry-run 2>/dev/null | grep -A 10 "Updates" || echo "  (No se detectaron cambios o no se pudo mostrar)"
+
+# Preguntar confirmación
+echo ""
+read -p " ¿Aplicar cambios y reconstruir el sistema? [s/N]: " -n 1 -r
+echo
+
+if [[ ! $REPLY =~ ^[Ss]$ ]]; then
+    echo "󰜺 Actualización cancelada."
+    exit 0
+fi
+
+# Rebuild del sistema
+echo "  Reconstruyendo el sistema..."
+sudo nixos-rebuild switch --flake ".#$HOSTNAME"
+
+echo "󰄵  Sistema actualizado exitosamente!"
