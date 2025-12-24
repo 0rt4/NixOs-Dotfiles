@@ -3,41 +3,16 @@
 {
     home.packages = with pkgs; [
 # ====================== Aplicaciones Varias ==============================
-      # Apps
-        steam
-        #telegram-desktop
-
-        #spicetify-cli
-        #spotify
-        #obsidian
-        #stremio
-
-      # Navegadores
-        google-chrome
-        bitwarden-desktop
-        unstable.zen-browser
-        #librewolf-bin
+    # === Apps ===
       # Agrega más según necesites
-
-# ======================      Desarrollo     ===================================
-      # IDES
-        vscode
-        #jetbrains.pycharm-community
-        #jetbrains.webstorm
-        github-desktop
-        #gitkraken
-
-      # 🐍 Python
-        #python3
-        #python3Packages.python-lsp-server
-
-      # 🦀 Rust
-        #rustup
-
-      # 📜 JavaScript / TypeScript
-        #nodejs
-        #typescript
-        #typescript-language-server
+      
+      # Juegos en terminal
+      cataclysm-dda
+      (pkgs.dwarf-fortress-packages.dwarf-fortress-full.override {
+      # NO pongas dfVersion = "0.47.05"; la versión por defecto es más estable para compilar
+      theme = pkgs.dwarf-fortress-packages.themes.phoebus;
+      enableDFHack = true;
+        })
     ];
 }
 

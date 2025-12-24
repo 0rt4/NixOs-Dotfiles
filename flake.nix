@@ -15,12 +15,18 @@
     #  inputs.nixpkgs.follows = "nixpkgs";
     #};
 
-
-    # Herramientas especiales
-    quickshell = {
-      url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    mango = {
+      url = "github:DreamMaoMao/mango";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+
+    # Herramientas especiales
+    #quickshell = {
+    #  url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
+    #  inputs.nixpkgs.follows = "nixpkgs";
+    #};
 
     # Apps Individuales
     zen-browser = {
@@ -29,11 +35,11 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, zen-browser,... }@inputs:
+  outputs = { self, nixpkgs, home-manager, zen-browser,flake-parts, ... } @inputs:
   let
     system = "x86_64-linux";
   in {
-    nixosConfigurations = {
+    nixosConfigurations = { # Hosts
       omen-laptop = nixpkgs.lib.nixosSystem {
         inherit system;
         specialArgs = { inherit inputs; };
@@ -65,6 +71,71 @@
           })
         ];
       };
+      
+      syntek-dev = nixpkgs.lib.nixosSystem {
+        inherit system;
+        specialArgs = { inherit inputs; };
+        modules = [
+          ./hosts/syntek-dev  
+          
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.extraSpecialArgs = { inherit inputs; };
+            home-manager.backupFileExtension = "backup";
+            home-manager.users.orta = { inputs, ... }: {
+              imports = [
+                ./home/orta
+              ];
+            };
+          }
+
+          # Overlay para flakes
+          ({ pkgs, lib, ... }: {
+            nixpkgs.overlays = [
+              (final: prev: {
+                unstable = prev.unstable or {} // {
+                  zen-browser = inputs.zen-browser.packages.${system}.default;
+                };
+              })
+            ];
+          })
+        ];
+      };
+      
+      neuromancer = nixpkgs.lib.nixosSystem {
+        inherit system;
+        specialArgs = { inherit inputs; };
+        modules = [
+          ./hosts/neuromancer  
+
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.extraSpecialArgs = { inherit inputs; };
+            home-manager.backupFileExtension = "backup";
+            home-manager.users.orta = { inputs, ... }: {
+              imports = [
+                ./home/orta # CONSIDERAR CAMBIAR EL USUARIO
+              ];
+            };
+          }
+
+          # Overlay para flakes
+          ({ pkgs, lib, ... }: {
+            nixpkgs.overlays = [
+              (final: prev: {
+                unstable = prev.unstable or {} // {
+                  zen-browser = inputs.zen-browser.packages.${system}.default;
+                };
+              })
+            ];
+          })
+        ];
+      };
+      
     };
   };
 }

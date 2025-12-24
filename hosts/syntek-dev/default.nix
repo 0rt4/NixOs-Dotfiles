@@ -15,12 +15,12 @@
   ];
 
 # ================== Habilitar desktops (cambia según quieras) ====================
-  # SE RECOMIENDA: Siemre activar uno solo, aunque puedas activar mas de uno
+  # SE RECOMIENDA: Siempre activar uno solo, aunque puedas activar mas de uno
   # algunos no son compatibles entre si (Ej: Plasma + Niri). Considera de todas maneras
   # que puedes Activar uno u otro con facilidad, por lo que no sera necesario activar
   # más de 2 al mismo tiempo
   desktops = {
-    gnome.enable = true;
+    gnome.enable = false;
     # plasma.enable = false;
     # hyprland.enable = false;
     niri.enable = false;
@@ -28,7 +28,7 @@
   };
 
   # Hostname
-  networking.hostName = "omen-laptop";
+  networking.hostName = "syntek-dev";
 
   # Timezone y locale
   time.timeZone = "America/Mexico_City";
@@ -72,7 +72,7 @@
 # =============================  Usuario   ====================================
   users.users.orta = {
     isNormalUser = true;
-    description = "Christopher Orta";
+    description = "syntek-dev";
     extraGroups = [ "networkmanager" "wheel" "video" "audio" ];
     shell = pkgs.fish;
   };
@@ -83,31 +83,57 @@
 
   # Paquetes del sistema
   environment.systemPackages = with pkgs; [
-  
-  # === Aplicaciones ===
-    nautilus
-    evince
-    vesktop
-    steam
-    mpv
-    unstable.zen-browser
-    bitwarden-desktop
+
+  # === CLI Tools ===
+    direnv # Gestión de entornos
     
+  # === Aplicaciones extras ===
+    evince
+    gparted
+    loupe
+    mpv
+    nautilus
+
+    bitwarden-desktop
+    unstable.zen-browser
+    
+  # === Desarrollo  ===
+  
+    # Herramientas
+    jetbrains.pycharm
+    jetbrains.webstorm
     vscode
     
-    # telegram-desktop
-    # spicetify-cli
-    # spotify
-    # obsidian
-    # stremio
+    github-desktop
+    #gitkraken
+  
+  # === Dependencias y lenguajes ===
     
+    # Python
+    python3
+    python3Packages.pip
+    python3Packages.virtualenv
+    
+    # Typescript
+    nodejs_20
+    nodePackages.pnpm
+    nodePackages.typescript
+    nodePackages.typescript-language-server
+    nodePackages.prettier
+    nodePackages.nodemon
+    
+    # Rust
+    #cargo
+    #rustc
+    #rustfmt
+    #clippy
+  
   ];
 
-  # Gaming
-  programs.steam = {
+  # DirenV
+  programs.direnv = {
     enable = true;
-    remotePlay.openFirewall = true;
-    dedicatedServer.openFirewall = true;
+    nix-direnv.enable = true;
   };
 
 # ==================== Nix settings con optimizaciones =============================
@@ -121,7 +147,7 @@
     gc = {
       automatic = true;
       dates = "weekly";
-      options = "--delete-older-than 7d";
+      options = "--delete-older-than 3d";
     };
   };
 
