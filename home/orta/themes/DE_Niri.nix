@@ -288,7 +288,7 @@
       Mod+B { spawn "bgselector"; }
       Mod+Alt+L { spawn "swaylock"; }
       Mod+Alt+S allow-when-locked=true { spawn "sh" "-c" "pkill orca || exec orca"; }
-      Mod+Alt+R { spawn-sh "wf-recorder -g \"$(slurp)\" --audio -f ~/Vídeos/vídeo - $(date +%s).mp4";}
+      Mod+Alt+R { spawn-sh "wf-recorder -g \"$(slurp)\" --audio -f ~/Vídeos/Niri - $(date +%s).mp4";}
       
         // Correcta configuracion de los atajos de la laptop
       XF86AudioRaiseVolume allow-when-locked=true { spawn "sh" "-c" "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+"; }

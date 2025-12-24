@@ -18,6 +18,8 @@ with lib;
         wf-recorder
         slurp
         wl-clipboard
+        brightnessctl
+        polkit_gnome
       ];
       description = "Paquetes para Niri";
     };

@@ -26,7 +26,13 @@
 
       # NixOS
       rebuild-laptop = "/etc/nixos/modules/scripts/rebuild-laptop";
+      rebuild-dev = "/etc/nixos/modules/scripts/rebuild-dev";
+      rebuild-cybersecurity = "/etc/nixos/modules/scripts/update-cybersecurity";
+      
       update-laptop = "/etc/nixos/modules/scripts/update-laptop";
+      update-dev = "/etc/nixos/modules/scripts/update-dev";
+      update-cybersecurity = "/etc/nixos/modules/scripts/update-cybersecurity";
+      
       clean = "/etc/nixos/modules/scripts/clean";
       appdrawer = "/etc/nixos/modules/scripts/appdrawer";
       bgselector = "/etc/nixos/modules/scripts/bgselector";

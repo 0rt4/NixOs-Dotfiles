@@ -63,14 +63,28 @@ in
 
 # ========================== PKGS GLOBALES ==========================
   environment.systemPackages = with pkgs; [
-    # Tema SDDM
+  # === Tema SDDM ===
     sddm-astronaut
     kdePackages.qtmultimedia
 
-    # Aplicaciones comunes
-    evince
-    nautilus
-    gparted
-    loupe
+  # === Terminal ===
+    ghostty
+    helix # Editor de texto moderno
+
+  # === CLI Tools ===
+    duf
+    eza        # ls moderno con iconos
+    ncdu       # analizador de disco interactivo
+    btop       # monitor de sistema completo 
+    yazi       # file manager TUI
+    ripgrep    # grep rápido
+    fd         # find mejorado
+    zoxide     # cd inteligente
+    
+  # === Indispensables ===
+    wget
+    git
+    curl
+    jq
   ];
 }

@@ -7,7 +7,7 @@
 
     # Services
     ../../modules/services/audio.nix
-    ../../modules/services/network.nix
+    # ../../modules/services/network.nix  # Requiere modificaciones más precisas, por lo que no se recomienda importar la configuración default
     ../../modules/services/nvidia.nix
 
     # Desktops
@@ -23,12 +23,12 @@
     gnome.enable = true;
     # plasma.enable = false;
     # hyprland.enable = false;
-    niri.enable = false;
-    mangowc.enable = true;
+    niri.enable = true;
+    # cosmic.enable = false;
   };
 
   # Hostname
-  networking.hostName = "omen-laptop";
+  networking.hostName = "neuromancer";
 
   # Timezone y locale
   time.timeZone = "America/Mexico_City";
@@ -72,7 +72,7 @@
 # =============================  Usuario   ====================================
   users.users.orta = {
     isNormalUser = true;
-    description = "Christopher Orta";
+    description = "neuromancer";
     extraGroups = [ "networkmanager" "wheel" "video" "audio" ];
     shell = pkgs.fish;
   };
@@ -83,32 +83,35 @@
 
   # Paquetes del sistema
   environment.systemPackages = with pkgs; [
-  
-  # === Aplicaciones ===
-    nautilus
-    evince
-    vesktop
-    steam
-    mpv
-    unstable.zen-browser
-    bitwarden-desktop
+
+  # === CLI Tools ===
+    direnv # Gestión de entornos
     
+  # === Aplicaciones extras ===
+    evince
+    gparted
+    loupe
+    mpv
+
+    bitwarden-desktop
+    librewolf
+    
+  # === Desarrollo  ===
+  
+    # Herramientas
     vscode
     
-    # telegram-desktop
-    # spicetify-cli
-    # spotify
-    # obsidian
-    # stremio
+    github-desktop
+    #gitkraken
+  
+  # === Dependencias y lenguajes ===
+    
+    # Python
+    python3
+    python3Packages.pip
+    python3Packages.virtualenv
     
   ];
-
-  # Gaming
-  programs.steam = {
-    enable = true;
-    remotePlay.openFirewall = true;
-    dedicatedServer.openFirewall = true;
-  };
 
 # ==================== Nix settings con optimizaciones =============================
   nix = {
