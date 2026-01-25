@@ -2,13 +2,13 @@
 
 {
   imports = [
-    ./App-settings
+    ./App-settings.nix
   ];
 
   # ===== CONFIGURACIÓN BÁSICA DE USUARIO =====
     home = {
-      username = "orta";
-      homeDirectory = "/home/orta";
+      username = "test";
+      homeDirectory = "/home/test";
       stateVersion = "25.11";
     };
 
@@ -21,7 +21,7 @@
 
     # Variables de entorno
     home.sessionVariables = {
-      EDITOR = "hx";
+      EDITOR = "helix";
       SHELL = "${pkgs.fish}/bin/fish";
     };
 }
