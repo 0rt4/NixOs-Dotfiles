@@ -44,7 +44,7 @@
         {
           name = "nix";
           auto-format = true;
-          formatter.command = "${pkgs.nixfmt-classic}/bin/nixfmt";
+          formatter.command = "${pkgs.nixfmt}/bin/nixfmt";
         }
         {
           name = "python";
@@ -55,37 +55,37 @@
         {
           name = "javascript";
           auto-format = true;
-          formatter.command = "${pkgs.nodePackages.prettier}/bin/prettier";
+          formatter.command = "${pkgs.prettier}/bin/prettier";
           formatter.args = ["--stdin-filepath" "filename"];
         }
         {
           name = "typescript";
           auto-format = true;
-          formatter.command = "${pkgs.nodePackages.prettier}/bin/prettier";
+          formatter.command = "${pkgs.prettier}/bin/prettier";
           formatter.args = ["--stdin-filepath" "filename"];
         }
         {
           name = "json";
           auto-format = true;
-          formatter.command = "${pkgs.nodePackages.prettier}/bin/prettier";
+          formatter.command = "${pkgs.prettier}/bin/prettier";
           formatter.args = ["--stdin-filepath" "filename"];
         }
         {
           name = "html";
           auto-format = true;
-          formatter.command = "${pkgs.nodePackages.prettier}/bin/prettier";
+          formatter.command = "${pkgs.prettier}/bin/prettier";
           formatter.args = ["--stdin-filepath" "filename"];
         }
         {
           name = "css";
           auto-format = true;
-          formatter.command = "${pkgs.nodePackages.prettier}/bin/prettier";
+          formatter.command = "${pkgs.prettier}/bin/prettier";
           formatter.args = ["--stdin-filepath" "filename"];
         }
         {
           name = "markdown";
           auto-format = true;
-          formatter.command = "${pkgs.nodePackages.prettier}/bin/prettier";
+          formatter.command = "${pkgs.prettier}/bin/prettier";
           formatter.args = ["--stdin-filepath" "filename"];
         }
         {
@@ -110,7 +110,7 @@
           command = "${pkgs.python3Packages.python-lsp-server}/bin/pylsp";
         };
         typescript-language-server = {
-          command = "${pkgs.nodePackages.typescript-language-server}/bin/typescript-language-server";
+          command = "${pkgs.typescript-language-server}/bin/typescript-language-server";
           args = [ "--stdio" ];
         };
         rust-analyzer = {
@@ -236,7 +236,7 @@
 
   # Asegurar que las dependencias estén instaladas
   home.packages = with pkgs; [
-    nixfmt-classic
+    nixfmt
     black
     shfmt
     yamlfmt

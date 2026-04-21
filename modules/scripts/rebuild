@@ -4,7 +4,7 @@
 set -e
 
 FLAKE_DIR="${FLAKE_DIR:-/etc/nixos}"
-HOSTNAME="Syntek-dev"
+HOSTNAME=" "
 
 echo " Reconstruyendo NixOS..."
 echo "  Directorio: $FLAKE_DIR"

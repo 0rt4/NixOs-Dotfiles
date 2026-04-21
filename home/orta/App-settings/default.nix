@@ -10,5 +10,6 @@
     ./Cursor.nix
     ./GTK.nix
     ./QT.nix
+    #./Shell.nix
   ];
 }
